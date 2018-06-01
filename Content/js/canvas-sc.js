@@ -11,7 +11,8 @@ $(document).ready(function(){
     // draw_curve(ctx);
     // draw_image(ctx);
     // draw_image_scale(ctx);
-    draw_image_cut_scale(ctx);
+    // draw_image_cut_scale(ctx);
+    draw_text(ctx);
 });
 
 function draw_rectangles(ctx){
@@ -105,4 +106,17 @@ function draw_image_cut_scale(ctx){
     img.onload = function(){
         ctx.drawImage(img, 47, 16, 317, 64, 10, 10, 300, 60 );
     }
+}
+
+function draw_text(ctx){
+
+    //background
+    ctx.fillStyle = "#ffffaa";
+    ctx.fillRect(0, 0, 500, 300);
+
+    ctx.fillStyle = "#000000";
+    ctx.font = "20px _sans";
+    ctx.textBaseline = "top";
+    ctx.fillText("Hello World!", 195, 80);
+
 }
