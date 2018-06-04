@@ -12,7 +12,9 @@ $(document).ready(function(){
     // draw_image(ctx);
     // draw_image_scale(ctx);
     // draw_image_cut_scale(ctx);
-    draw_text(ctx);
+    // draw_text(ctx);
+    // rotate_rect(ctx);
+    rotate_center_rectangle(ctx);
 });
 
 function draw_rectangles(ctx){
@@ -120,3 +122,56 @@ function draw_text(ctx){
     ctx.fillText("Hello World!", 195, 80);
 
 }
+
+function rotate_rect(ctx){
+    // canvas don't know the origin to rotate the shape
+    // then take the origin as (0,0)
+    ctx.save();
+
+    // this is not affected by transformation
+    ctx.fillStyle = "yellow"; 
+    ctx.fillRect(50, 50, 10, 10);
+
+    // rotate
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    var angleInRadians = 45 * Math.PI / 180;
+    ctx.rotate(angleInRadians);
+  
+    // draw rectangle 1
+    ctx.fillStyle = "red";
+    ctx.fillRect(100, 100, 50, 50);
+
+    // draw rectangle 1
+    ctx.fillStyle = "green";
+    ctx.fillRect(50, 50, 10, 10);
+
+    // context was restore as previous save status
+    ctx.restore();
+
+}
+
+function rotate_center_rectangle(ctx){
+
+    ctx.setTransform(1,0,0,1,0,0);
+    var ang = convert_degrees_radian(45);
+    // rectangle properties
+    var x = 50;
+    var y = 100;
+    var width = 40;
+    var height = 40;
+    // translate origin point 
+    ctx.translate(x+(0.5*width), y+(0.5*height));
+    // rotate shapes to certain angle
+    ctx.rotate(ang);
+
+    // draw rectangle
+    ctx.fillStyle = "red";
+    ctx.fillRect(-0.5*width, -0.5*height, width, height);
+
+}
+
+function convert_degrees_radian(degree){
+    return (degree * Math.PI / 180);
+}
+
+
