@@ -14,7 +14,9 @@ $(document).ready(function(){
     // draw_image_cut_scale(ctx);
     // draw_text(ctx);
     // rotate_rect(ctx);
-    rotate_center_rectangle(ctx);
+    // rotate_center_rectangle(ctx);
+    // scale_draw(ctx);
+    scale_draw_center(ctx);
 });
 
 function draw_rectangles(ctx){
@@ -172,6 +174,32 @@ function rotate_center_rectangle(ctx){
 
 function convert_degrees_radian(degree){
     return (degree * Math.PI / 180);
+}
+
+function scale_draw(ctx){
+    // scale without translate the origin
+    // this will take the origin of (0,0)
+
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(2,2);
+    ctx.fillStyle = "red";
+    ctx.fillRect(100,100 ,50,50);
+}
+
+function scale_draw_center(ctx){
+    // before scale we need to translate the origin
+    // to out shape center.
+
+    //now draw a red square
+    ctx.setTransform(1,0,0,1,0,0);
+    var x = 100;
+    var y = 100;
+    var width = 50;
+    var height = 50;
+    ctx.translate(x+.5*width, y+.5*height);
+    ctx.scale(2,2); // 2 times bigger
+    ctx.fillStyle = "red";
+    ctx.fillRect(-.5*width,-.5*height , width, height);
 }
 
 
