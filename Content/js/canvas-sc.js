@@ -1,10 +1,15 @@
+var context = undefined;
+var canv = undefined;
+var dataURL = undefined;
+
 $(document).ready(function(){
 
     //alert("jquery running...");
 
     var cv = $("#canvasel")[0];    // select canvas element
     var ctx = cv.getContext('2d'); // take context
-
+    context = ctx;
+    canv = cv;
     // draw_rectangles(ctx);
     // draw_path(ctx);
     // draw_path_two_site(ctx);
@@ -16,7 +21,8 @@ $(document).ready(function(){
     // rotate_rect(ctx);
     // rotate_center_rectangle(ctx);
     // scale_draw(ctx);
-    scale_draw_center(ctx);
+    // scale_draw_center(ctx);
+    draw_image_scale_rotate(ctx, cv);
 });
 
 function draw_rectangles(ctx){
@@ -203,3 +209,109 @@ function scale_draw_center(ctx){
 }
 
 
+function draw_image_scale_rotate(ctx, cv){
+    // drawImage(imagen, posX, posY);
+    // drawImage(imagen, posX, posY, with, high);
+    ctx.save();
+
+    ctx.setTransform(1,0,0,1,0,0);
+    var ang = convert_degrees_radian(180);
+
+    // rectangle properties
+    var x = 10;
+    var y = 10;
+    var width = 445;
+    var height = 124;
+
+    // translate origin point 
+    ctx.translate(x+(0.5*500), y+(0.5*500)); // centro del canvas
+    // rotate shapes to certain angle
+    ctx.rotate(ang);
+
+    // draw image
+    var img_src = "./Content/img/main-board-2.png"
+
+    var img = new Image();
+    img.loaded = false;
+    img.src = img_src;
+
+    img.onload = function(){
+        ctx.drawImage(img, -0.5*width, -0.5*height, width, height);
+        img.loaded = true;
+    }
+
+    setTimeout(draw_marker, 100);
+    
+    //ctx.restore();
+}
+
+function draw_marker(){
+    // draw marker
+
+    context.strokeStyle = "red";
+    context.fillStyle = "red";
+    
+    var x = 86;
+    var y = 27;
+    var width = 248;
+    var height = 12;
+
+    //strokeRect(x, y, with, heigh)
+    context.strokeRect(-0.5*248, -0.5*12, 248, 12);
+
+    console.log(11);
+}
+
+
+function draw_image_scale_rotate_flip(ctx, cv){
+    // drawImage(imagen, posX, posY);
+    // drawImage(imagen, posX, posY, with, high);
+    ctx.save();
+
+    ctx.setTransform(1,0,0,1,0,0);
+    var ang = convert_degrees_radian(180);
+
+    // rectangle properties
+    var x = 10;
+    var y = 10;
+    var width = 445;
+    var height = 124;
+
+    // translate origin point 
+    ctx.translate(x+(0.5*500), y+(0.5*500)); // centro del canvas
+    // rotate shapes to certain angle
+    ctx.rotate(ang);
+
+    // draw image
+    var img_src = "./Content/img/main-board-2.png"
+
+    var img = new Image();
+    img.loaded = false;
+    img.src = img_src;
+
+    img.onload = function(){
+        ctx.drawImage(img, -0.5*width, -0.5*height, width, height);
+        img.loaded = true;
+    }
+
+    setTimeout(draw_marker_flip, 100);
+    
+    //ctx.restore();
+}
+
+function draw_marker_flip(){
+    // draw marker
+
+    context.strokeStyle = "red";
+    context.fillStyle = "red";
+    
+    var x = 86;
+    var y = 27;
+    var width = 248;
+    var height = 12;
+
+    //strokeRect(x, y, with, heigh)
+    context.strokeRect(-0.5*248, -0.5*12, 248, 12);
+
+    console.log(11);
+}
